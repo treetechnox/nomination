@@ -18,13 +18,14 @@ public class Mouvement implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_mouvement;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "mouvement_id", referencedColumnName = "id_etat_mouvement")
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "mouvement")
     private EtatMouvement etatMouvement;
 
     @ManyToOne(targetEntity = Candidat.class)
-    @JoinColumn(name="CANDIDAT_ID")
-    private Long id_candidat;
+    @JoinColumn(name="candidat_id")
+    private Candidat id_candidat;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "fonction_id", referencedColumnName = "id_fct")
@@ -35,7 +36,7 @@ public class Mouvement implements Serializable {
     private Organisme id_organisme;
     private String id_type;
 
-    public Mouvement(EtatMouvement etatMouvement, Long id_candidat, Fonction fonction, Organisme id_organisme, String id_type) {
+    public Mouvement(EtatMouvement etatMouvement, Candidat id_candidat, Fonction fonction, Organisme id_organisme, String id_type) {
         this.etatMouvement = etatMouvement;
         this.id_candidat = id_candidat;
         this.fonction = fonction;
@@ -43,7 +44,6 @@ public class Mouvement implements Serializable {
         this.id_type = id_type;
     }
 
-    /*
     public Long getId_mouvement() {
         return id_mouvement;
     }
@@ -52,47 +52,43 @@ public class Mouvement implements Serializable {
         this.id_mouvement = id_mouvement;
     }
 
-    public Long getId_candidat() {
+    public EtatMouvement getEtatMouvement() {
+        return etatMouvement;
+    }
+
+    public void setEtatMouvement(EtatMouvement etatMouvement) {
+        this.etatMouvement = etatMouvement;
+    }
+
+    public Candidat getId_candidat() {
         return id_candidat;
     }
 
-    public void setId_candidat(Long id_candidat) {
+    public void setId_candidat(Candidat id_candidat) {
         this.id_candidat = id_candidat;
     }
 
-    public Long getId_fct() {
-        return id_fct;
+    public Fonction getFonction() {
+        return fonction;
     }
 
-    public void setId_fct(Long id_fct) {
-        this.id_fct = id_fct;
+    public void setFonction(Fonction fonction) {
+        this.fonction = fonction;
     }
 
-    public Long getId_organisme() {
+    public Organisme getId_organisme() {
         return id_organisme;
     }
 
-    public void setId_organisme(Long id_organisme) {
+    public void setId_organisme(Organisme id_organisme) {
         this.id_organisme = id_organisme;
     }
 
-    public Long getId_type() {
+    public String getId_type() {
         return id_type;
     }
 
-    public void setId_type(Long id_type) {
+    public void setId_type(String id_type) {
         this.id_type = id_type;
     }
-
-    public Mouvement(Long id_candidat, Long id_fct, Long id_organisme, Long id_type) {
-        this.id_candidat = id_candidat;
-        this.id_fct = id_fct;
-        this.id_organisme = id_organisme;
-        this.id_type = id_type;
-    }
-
-    public Mouvement() {
-
-    }*/
-
 }
